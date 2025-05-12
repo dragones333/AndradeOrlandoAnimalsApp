@@ -1,4 +1,4 @@
-package com.example.andradeorlandoanimalsapp.services
+package com.example.andradeorlandoanimalsapp.models
 
 data class Animal(
     val id: String,
