@@ -1,7 +1,5 @@
 package com.example.andradeorlandoanimalsapp.components
 
-// components/BottomNavBar.kt
-
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
