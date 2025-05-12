@@ -64,7 +64,7 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.1.0")
 
     val nav_version = "2.8.9"
-    implementation("androidx.navigation:navigation-compose:$nav_version")
-
+    implementation ("androidx.navigation:navigation-compose:$nav_version")
+    implementation("androidx.compose.material:material:1.6.7")
 
 }
