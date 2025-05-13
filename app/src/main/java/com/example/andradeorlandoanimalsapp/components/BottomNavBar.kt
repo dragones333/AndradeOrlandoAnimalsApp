@@ -21,11 +21,12 @@ import androidx.navigation.compose.composable
 import com.example.andradeorlandoanimalsapp.screens.*
 
 @Composable
-fun BottomNavBar(navController: NavController) {
+fun BottomNavBar(navController: NavController,modifier: Modifier = Modifier) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 24.dp)
+            .padding(bottom = 24.dp),
+        contentAlignment = Alignment.Center
     ) {
         Box(
             modifier = Modifier

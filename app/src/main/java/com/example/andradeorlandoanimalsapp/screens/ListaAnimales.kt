@@ -24,7 +24,6 @@ import coil.compose.rememberAsyncImagePainter
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
 import com.example.andradeorlandoanimalsapp.model.Animal
 import com.example.andradeorlandoanimalsapp.network.ApiClient
-
 @Composable
 fun ListaAnimales(navController: NavHostController) {
     var animales by remember { mutableStateOf<List<Animal>>(emptyList()) }
@@ -55,6 +54,7 @@ fun ListaAnimales(navController: NavHostController) {
                     .fillMaxSize()
                     .padding(bottom = 96.dp)
             ) {
+
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -96,13 +96,6 @@ fun ListaAnimales(navController: NavHostController) {
                 }
             }
 
-
-            BottomNavBar(
-                navController = navController,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 24.dp)
-            )
         }
     }
 }

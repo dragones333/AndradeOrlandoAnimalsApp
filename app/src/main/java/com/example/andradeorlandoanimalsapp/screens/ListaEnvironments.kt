@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -16,6 +17,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.andradeorlandoanimalsapp.components.BottomNavBar
 import com.example.andradeorlandoanimalsapp.model.Environment
 import com.example.andradeorlandoanimalsapp.network.ApiClient
 @Composable
@@ -36,7 +38,7 @@ fun ListaEnvironments(navController: NavHostController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF2E3B2E)) // Fondo verde oscuro
+            .background(Color(0xFF2E3B2E))
     ) {
         if (isLoading) {
             Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -87,13 +89,6 @@ fun ListaEnvironments(navController: NavHostController) {
                 }
             }
 
-            // BottomNavBar suspendido
-            BottomNavBar(
-                navController = navController,
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 16.dp)
-            )
         }
     }
 }
@@ -120,11 +115,6 @@ fun EnvironmentItem(environment: Environment, navController: NavHostController) 
                 modifier = Modifier
                     .size(80.dp)
                     .clip(MaterialTheme.shapes.extraLarge)
-            )
-            Spacer(modifier = Modifier.width(16.dp))
-            Text(
-                text = environment.name,
-                style = MaterialTheme.typography.titleMedium
             )
         }
     }

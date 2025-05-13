@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.andradeorlandoanimalsapp.components.AppNavigation
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
@@ -23,9 +24,21 @@ class MainActivity : ComponentActivity() {
         setContent {
             AndradeOrlandoAnimalsAppTheme {
                 val navController = rememberNavController()
+
                 Scaffold(
+                    bottomBar = {
+                        BottomNavBar(
+                            navController = navController,
+                            modifier = Modifier
+                                .padding(bottom = 16.dp)
+                        )
+                    }
                 ) { innerPadding ->
-                    androidx.compose.foundation.layout.Box(modifier = Modifier.padding(innerPadding)) {
+                    androidx.compose.foundation.layout.Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(innerPadding)
+                    ) {
                         AppNavigation(navController)
                     }
                 }

@@ -125,10 +125,6 @@ fun DetalleAnimal(animalId: String, navController: NavController) {
                     }
                 }
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
-
-            BottomNavBar(navController = navController)
         }
     } ?: run {
         Box(
