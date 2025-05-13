@@ -1,74 +1,57 @@
 package com.example.andradeorlandoanimalsapp.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import coil.compose.AsyncImage
-import com.example.andradeorlandoanimalsapp.components.BottomNavBar
+import coil.compose.rememberAsyncImagePainter
 import com.example.andradeorlandoanimalsapp.model.Animal
+import com.example.andradeorlandoanimalsapp.network.ApiClient
+import kotlinx.coroutines.launch
 
 @Composable
-fun DetalleAnimal(navController: NavController, animalId: String) {
+fun DetalleAnimal(animalId: String, navController: NavController) {
     var animal by remember { mutableStateOf<Animal?>(null) }
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(animalId) {
-        animal = AnimalService1().getAnimalById(animalId)
+        scope.launch {
+            try {
+                val allAnimals = ApiClient.animalService.getAnimals()
+                animal = allAnimals.find { it.id == animalId }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
-    Scaffold(
-        bottomBar = { BottomNavBar(navController = navController) },
-        containerColor = Color(0xFF2F3E3E)
-    ) {
-        animal?.let {
-            Column(
+    animal?.let { a ->
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = a.name, style = MaterialTheme.typography.headlineMedium)
+            Spacer(modifier = Modifier.height(8.dp))
+            Image(
+                painter = rememberAsyncImagePainter(a.image),
+                contentDescription = a.name,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                AsyncImage(
-                    model = it.image,
-                    contentDescription = it.name,
-                    modifier = Modifier
-                        .size(250.dp)
-                )
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(it.name, color = Color.White, style = MaterialTheme.typography.headlineMedium)
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Text(it.description, color = Color.White)
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("Galería", color = Color.White, style = MaterialTheme.typography.titleLarge)
-                LazyRow(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    items(it.gallery) { imgUrl ->
-                        AsyncImage(
-                            model = imgUrl,
-                            contentDescription = "Imagen galería",
-                            modifier = Modifier
-                                .size(120.dp)
-                        )
-                    }
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-                Text("Hechos Interesantes", color = Color.White, style = MaterialTheme.typography.titleLarge)
-                Spacer(modifier = Modifier.height(8.dp))
-                it.facts.forEach { fact ->
-                    Text("• $fact", color = Color.White)
-                }
+                    .fillMaxWidth()
+                    .height(200.dp),
+                contentScale = ContentScale.Crop
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = a.description)
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = "Curiosidades:")
+            a.facts.forEach { fact ->
+                Text("- $fact", style = MaterialTheme.typography.bodyMedium)
             }
-        } ?: Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator(color = Color.White)
+        }
+    } ?: run {
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = androidx.compose.ui.Alignment.Center) {
+            CircularProgressIndicator()
         }
     }
 }
