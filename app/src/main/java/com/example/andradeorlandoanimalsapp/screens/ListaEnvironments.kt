@@ -9,13 +9,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
 import com.example.andradeorlandoanimalsapp.model.Environment
 import com.example.andradeorlandoanimalsapp.network.ApiClient
-
 @Composable
 fun ListaEnvironments(navController: NavHostController) {
     var environments by remember { mutableStateOf<List<Environment>>(emptyList()) }
@@ -36,41 +36,43 @@ fun ListaEnvironments(navController: NavHostController) {
             CircularProgressIndicator()
         }
     } else {
-        LazyColumn {
+        LazyColumn(
+            contentPadding = PaddingValues(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
             items(environments) { environment ->
                 EnvironmentItem(environment, navController)
             }
         }
     }
 }
+
 @Composable
 fun EnvironmentItem(environment: Environment, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .clickable {
                 navController.navigate("detalleEnvironment/${environment._id}")
-            }
+            },
+        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
     ) {
-        Column {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(12.dp)
+        ) {
             Image(
                 painter = rememberAsyncImagePainter(environment.image),
                 contentDescription = environment.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .height(200.dp)
+                    .size(80.dp)
+                    .clip(MaterialTheme.shapes.extraLarge)
             )
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = environment.name,
-                style = MaterialTheme.typography.titleLarge,
-                modifier = Modifier.padding(8.dp)
-            )
-            Text(
-                text = environment.description,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+                style = MaterialTheme.typography.titleMedium
             )
         }
     }
