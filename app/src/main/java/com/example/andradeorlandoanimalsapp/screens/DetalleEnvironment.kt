@@ -13,27 +13,27 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
-import com.example.andradeorlandoanimalsapp.model.Ambiente
 import com.example.andradeorlandoanimalsapp.model.Animal
-import com.example.andradeorlandoanimalsapp.network.AmbienteService
+import com.example.andradeorlandoanimalsapp.model.Environment
 import com.example.andradeorlandoanimalsapp.network.AnimalService
+import com.example.andradeorlandoanimalsapp.network.EnvironmentService
 
 @Composable
-fun DetalleAmbiente(navController: NavController, ambienteId: String) {
-    var ambiente by remember { mutableStateOf<Ambiente?>(null) }
-    var animalesFiltrados by remember { mutableStateOf<List<Animal>>(emptyList()) }
+fun DetalleEnvironment(navController: NavController, environmentId: String) {
+    var environment by remember { mutableStateOf<Environment?>(null) }
+    var filteredAnimals by remember { mutableStateOf<List<Animal>>(emptyList()) }
 
-    LaunchedEffect(ambienteId) {
-        ambiente = AmbienteService().getAmbienteById(ambienteId)
-        val todosAnimales = AnimalService().getAnimales()
-        animalesFiltrados = todosAnimales.filter { it.ambienteId == ambienteId }
+    LaunchedEffect(environmentId) {
+        environment = EnvironmentService().getEnvironmentById(environmentId)
+        val allAnimals = AnimalService().getAnimals()
+        filteredAnimals = allAnimals.filter { it.environmentId == environmentId }
     }
 
     Scaffold(
         bottomBar = { BottomNavBar(navController = navController) },
         containerColor = Color(0xFF2F3E3E)
     ) {
-        ambiente?.let {
+        environment?.let {
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -43,8 +43,7 @@ fun DetalleAmbiente(navController: NavController, ambienteId: String) {
                 AsyncImage(
                     model = it.image,
                     contentDescription = it.name,
-                    modifier = Modifier
-                        .size(250.dp)
+                    modifier = Modifier.size(250.dp)
                 )
                 Spacer(modifier = Modifier.height(16.dp))
                 Text(it.name, color = Color.White, style = MaterialTheme.typography.headlineMedium)
@@ -52,13 +51,13 @@ fun DetalleAmbiente(navController: NavController, ambienteId: String) {
                 Text(it.description, color = Color.White)
 
                 Spacer(modifier = Modifier.height(24.dp))
-                Text("Animales del ambiente", color = Color.White, style = MaterialTheme.typography.titleLarge)
+                Text("Animales en este ambiente", color = Color.White, style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.height(8.dp))
 
                 LazyColumn(
                     verticalArrangement = Arrangement.spacedBy(16.dp)
                 ) {
-                    items(animalesFiltrados) { animal ->
+                    items(filteredAnimals) { animal ->
                         Row(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
@@ -70,8 +69,7 @@ fun DetalleAmbiente(navController: NavController, ambienteId: String) {
                             AsyncImage(
                                 model = animal.image,
                                 contentDescription = animal.name,
-                                modifier = Modifier
-                                    .size(80.dp)
+                                modifier = Modifier.size(80.dp)
                             )
                             Spacer(modifier = Modifier.width(12.dp))
                             Text(animal.name, color = Color.White)

@@ -15,15 +15,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
-import com.example.andradeorlandoanimalsapp.model.Ambiente
-import com.example.andradeorlandoanimalsapp.network.AmbienteService
+import com.example.andradeorlandoanimalsapp.model.Environment
+import com.example.andradeorlandoanimalsapp.network.EnvironmentService
 
 @Composable
-fun ListaAmbientes(navController: NavController) {
-    var ambientes by remember { mutableStateOf(listOf<Ambiente>()) }
+fun ListaEnvironments(navController: NavController) {
+    var environments by remember { mutableStateOf(listOf<Environment>()) }
 
     LaunchedEffect(true) {
-        ambientes = AmbienteService().getAmbientes()
+        environments = EnvironmentService().getEnvironments()
     }
 
     Scaffold(
@@ -44,24 +44,24 @@ fun ListaAmbientes(navController: NavController) {
                 verticalArrangement = Arrangement.spacedBy(24.dp),
                 contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
             ) {
-                items(ambientes) { ambiente ->
+                items(environments) { env ->
                     Column(
                         horizontalAlignment = Alignment.CenterHorizontally,
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                navController.navigate("detalleAmbiente/${ambiente.id}")
+                                navController.navigate("detalleEnvironment/${env._id}")
                             }
                     ) {
                         AsyncImage(
-                            model = ambiente.image,
-                            contentDescription = ambiente.name,
+                            model = env.image,
+                            contentDescription = env.name,
                             modifier = Modifier
                                 .size(160.dp)
                                 .clip(CircleShape)
                         )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(ambiente.name, color = Color.White)
+                        Text(env.name, color = Color.White)
                     }
                 }
             }
