@@ -24,7 +24,6 @@ class MainActivity : ComponentActivity() {
             AndradeOrlandoAnimalsAppTheme {
                 val navController = rememberNavController()
                 Scaffold(
-                    bottomBar = { BottomNavBar(navController) }
                 ) { innerPadding ->
                     androidx.compose.foundation.layout.Box(modifier = Modifier.padding(innerPadding)) {
                         AppNavigation(navController)

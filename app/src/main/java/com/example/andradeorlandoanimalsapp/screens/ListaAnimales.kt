@@ -1,11 +1,13 @@
 package com.example.andradeorlandoanimalsapp.screens
 
+
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
@@ -16,10 +18,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.andradeorlandoanimalsapp.components.BottomNavBar
 import com.example.andradeorlandoanimalsapp.model.Animal
 import com.example.andradeorlandoanimalsapp.network.ApiClient
+
 @Composable
 fun ListaAnimales(navController: NavHostController) {
     var animales by remember { mutableStateOf<List<Animal>>(emptyList()) }
@@ -40,78 +45,95 @@ fun ListaAnimales(navController: NavHostController) {
             CircularProgressIndicator()
         }
     } else {
-        Column(modifier = Modifier.fillMaxSize()) {
-            Row(
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color(0xFF2B3A2F))
+        ) {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .fillMaxSize()
+                    .padding(bottom = 96.dp)
             ) {
-                Text(
-                    text = "Animales",
-                    style = MaterialTheme.typography.titleLarge,
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Button(
-                    onClick = {  },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDEE094))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Add,
-                        contentDescription = "Agregar",
-                        tint = Color.Black
+                    Text(
+                        text = "Animales",
+                        style = MaterialTheme.typography.headlineSmall.copy(fontSize = 26.sp),
+                        color = Color.White
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text("Agregar", color = Color.Black)
+                    Button(
+                        onClick = { },
+                        colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFDEE094))
+                    ) {
+                        Icon(Icons.Default.Add, contentDescription = "Agregar", tint = Color.Black)
+                        Spacer(modifier = Modifier.width(4.dp))
+                        Text("Agregar", color = Color.Black)
+                    }
+                }
+
+                Text(
+                    text = "Conoce a los animales más increíbles del mundo",
+                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 18.sp),
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(bottom = 12.dp),
+                    color = Color.White
+                )
+
+                LazyColumn(
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                ) {
+                    items(animales) { animal ->
+                        AnimalItem(animal, navController)
+                    }
                 }
             }
 
-            Text(
-                text = "Conoce a los animales más increíbles del mundo",
-                style = MaterialTheme.typography.bodyMedium,
+
+            BottomNavBar(
+                navController = navController,
                 modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .padding(bottom = 8.dp)
+                    .align(Alignment.BottomCenter)
+                    .padding(bottom = 24.dp)
             )
-            LazyColumn {
-                items(animales) { animal ->
-                    AnimalItem(animal, navController)
-                }
-            }
         }
     }
 }
 
 @Composable
 fun AnimalItem(animal: Animal, navController: NavHostController) {
-    Card(
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
             .clickable {
                 navController.navigate("detalleAnimal/${animal.id}")
             },
-        shape = RoundedCornerShape(16.dp)
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier.padding(8.dp)
-        ) {
-            Image(
-                painter = rememberAsyncImagePainter(animal.image),
-                contentDescription = animal.name,
-                contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .size(200.dp)
-                    .clip(RoundedCornerShape(16.dp))
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(
-                text = animal.name,
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
+        Image(
+            painter = rememberAsyncImagePainter(animal.image),
+            contentDescription = animal.name,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(180.dp)
+                .clip(CircleShape)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        Text(
+            text = animal.name,
+            style = MaterialTheme.typography.titleMedium.copy(fontSize = 20.sp),
+            color = Color.White
+        )
     }
 }
+
+
+
+
