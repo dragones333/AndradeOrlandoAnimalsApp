@@ -1,9 +1,9 @@
-package com.example.andradeorlandoanimalsapp.services
+package com.example.andradeorlandoanimalsapp.network
 
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
     private const val BASE_URL = "https://animals.juanfrausto.com/api/"
@@ -23,5 +23,14 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(AnimalService::class.java)
+    }
+
+    val environmentService: EnvironmentService by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(httpClient)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+            .create(EnvironmentService::class.java)
     }
 }

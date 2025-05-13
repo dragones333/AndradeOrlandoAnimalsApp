@@ -1,7 +1,6 @@
 package com.example.andradeorlandoanimalsapp.screens
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -20,7 +19,6 @@ import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
 import com.example.andradeorlandoanimalsapp.model.Animal
-import com.example.andradeorlandoanimalsapp.network.AnimalService
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -29,7 +27,7 @@ fun ListaAnimales(navController: NavController) {
     var animales by remember { mutableStateOf(listOf<Animal>()) }
 
     LaunchedEffect(true) {
-        animales = AnimalService().getAnimales()
+        animales = AnimalService1().getAnimales()
     }
 
     Scaffold(

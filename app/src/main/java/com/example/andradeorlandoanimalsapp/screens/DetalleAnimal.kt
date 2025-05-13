@@ -1,28 +1,24 @@
 package com.example.andradeorlandoanimalsapp.screens
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
 import com.example.andradeorlandoanimalsapp.model.Animal
-import com.example.andradeorlandoanimalsapp.network.AnimalService
 
 @Composable
 fun DetalleAnimal(navController: NavController, animalId: String) {
     var animal by remember { mutableStateOf<Animal?>(null) }
 
     LaunchedEffect(animalId) {
-        animal = AnimalService().getAnimalById(animalId)
+        animal = AnimalService1().getAnimalById(animalId)
     }
 
     Scaffold(

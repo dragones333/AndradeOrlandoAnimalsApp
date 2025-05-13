@@ -15,7 +15,6 @@ import coil.compose.AsyncImage
 import com.example.andradeorlandoanimalsapp.components.BottomNavBar
 import com.example.andradeorlandoanimalsapp.model.Animal
 import com.example.andradeorlandoanimalsapp.model.Environment
-import com.example.andradeorlandoanimalsapp.network.AnimalService
 import com.example.andradeorlandoanimalsapp.network.EnvironmentService
 
 @Composable
@@ -25,7 +24,7 @@ fun DetalleEnvironment(navController: NavController, environmentId: String) {
 
     LaunchedEffect(environmentId) {
         environment = EnvironmentService().getEnvironmentById(environmentId)
-        val allAnimals = AnimalService().getAnimals()
+        val allAnimals = AnimalService1().getAnimals()
         filteredAnimals = allAnimals.filter { it.environmentId == environmentId }
     }
 
