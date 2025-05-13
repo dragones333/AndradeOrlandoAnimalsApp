@@ -1,33 +1,35 @@
 package com.example.andradeorlandoanimalsapp.components
 
-import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Nature
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Place
 
 @Composable
 fun BottomNavBar(navController: NavController) {
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-
-    BottomNavigation(
-        backgroundColor = Color(0xFF2D3B39), // Verde oscuro
-        contentColor = Color.White
-    ) {
-        BottomNavigationItem(
-            icon = { Icon(Icons.Default.Home, contentDescription = "Inicio") },
+    NavigationBar(containerColor = Color(0xFF2F3E3E)) {
+        NavigationBarItem(
+            icon = { Icon(Icons.Default.Home, contentDescription = "Animales") },
             label = { Text("Inicio") },
-            selected = currentRoute == "listaAnimales",
-            onClick = { navController.navigate("listaAnimales") }
+            selected = false,
+            onClick = {
+                navController.navigate("listaAnimales") {
+                    popUpTo("listaAnimales") { inclusive = true }
+                }
+            }
         )
-        BottomNavigationItem(
-            icon = { Icon(Icons.Default.Place, contentDescription = "Ambientes") },
-                    label = { Text("Ambientes") },
-            selected = currentRoute == "listaAmbientes",
-            onClick = { navController.navigate("listaAmbientes") }
+        NavigationBarItem(
+            icon = { Icon(Icons.Default.Nature, contentDescription = "Ambientes") },
+            label = { Text("Ambientes") },
+            selected = false,
+            onClick = {
+                navController.navigate("listaAmbientes") {
+                    popUpTo("listaAmbientes") { inclusive = true }
+                }
+            }
         )
     }
 }
