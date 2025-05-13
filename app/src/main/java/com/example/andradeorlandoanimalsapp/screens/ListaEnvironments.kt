@@ -1,6 +1,7 @@
 package com.example.andradeorlandoanimalsapp.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -42,13 +43,15 @@ fun ListaEnvironments(navController: NavHostController) {
         }
     }
 }
-
 @Composable
 fun EnvironmentItem(environment: Environment, navController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
+            .clickable {
+                navController.navigate("detalleEnvironment/${environment._id}")
+            }
     ) {
         Column {
             Image(
@@ -59,8 +62,16 @@ fun EnvironmentItem(environment: Environment, navController: NavHostController) 
                     .fillMaxWidth()
                     .height(200.dp)
             )
-            Text(text = environment.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
-            Text(text = environment.description, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp))
+            Text(
+                text = environment.name,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(8.dp)
+            )
+            Text(
+                text = environment.description,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            )
         }
     }
 }

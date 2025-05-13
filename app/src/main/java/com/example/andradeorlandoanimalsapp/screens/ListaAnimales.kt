@@ -43,7 +43,6 @@ fun ListaAnimales(navController: NavHostController) {
         }
     }
 }
-
 @Composable
 fun AnimalItem(animal: Animal, navController: NavHostController) {
     Card(
@@ -63,8 +62,17 @@ fun AnimalItem(animal: Animal, navController: NavHostController) {
                     .fillMaxWidth()
                     .height(200.dp)
             )
-            Text(text = animal.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.padding(8.dp))
-            Text(text = animal.description, style = MaterialTheme.typography.bodyMedium, modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp))
+            Text(
+                text = animal.name,
+                style = MaterialTheme.typography.titleLarge,
+                modifier = Modifier.padding(8.dp)
+            )
+            Text(
+                text = animal.description,
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp)
+            )
         }
     }
 }
+
