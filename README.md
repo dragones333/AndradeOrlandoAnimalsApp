@@ -22,13 +22,13 @@ Una aplicación móvil desarrollada en **Jetpack Compose** que permite visualiza
 ---
 
 ## 📱 Funcionalidades
--Lista de Animales: Visualización de animales con nombre e imagen circular, diseño atractivo y responsivo.
--Detalle de Animal: Información detallada de cada animal.
--Lista de Ambientes: Visualización de distintos ambientes naturales en tarjetas verticales.
--Detalle de Ambiente: Información del ambiente y animales que viven en él.
--Navegación intuitiva: Menú inferior (BottomNavBar) para moverse fácilmente entre pantallas.
--Consumo de API: Datos obtenidos dinámicamente desde un servicio REST (ambientes y animales).
--Diseño moderno y adaptativo con colores personalizados y uso completo de Jetpack Compose.
+- Lista de Animales: Visualización de animales con nombre e imagen circular, diseño atractivo y responsivo.
+- Detalle de Animal: Información detallada de cada animal.
+- Lista de Ambientes: Visualización de distintos ambientes naturales en tarjetas verticales.
+- Detalle de Ambiente: Información del ambiente y animales que viven en él.
+- Navegación intuitiva: Menú inferior (BottomNavBar) para moverse fácilmente entre pantallas.
+- Consumo de API: Datos obtenidos dinámicamente desde un servicio REST (ambientes y animales).
+- Diseño moderno y adaptativo con colores personalizados y uso completo de Jetpack Compose.
 
 ---
 
